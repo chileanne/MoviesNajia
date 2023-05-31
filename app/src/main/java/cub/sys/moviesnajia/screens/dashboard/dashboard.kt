@@ -2,13 +2,17 @@ package cub.sys.moviesnajia.screens
 
 
 import android.annotation.SuppressLint
+import android.provider.CalendarContract
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationDrawerItemColors
@@ -43,7 +47,8 @@ fun DashboardScreen(){
     val navController = rememberNavController();
 
   Scaffold(
-      bottomBar = { BottomAppBars(navController = navController) }
+      bottomBar = { BottomAppBars(navController = navController) },
+      containerColor = MaterialTheme.colorScheme.onSecondaryContainer
   ) {
       BottomNavGraph(navController = navController)
   }
@@ -63,7 +68,10 @@ fun BottomAppBars(navController: NavHostController){
     val currentDestination = navBackStackEntry?.destination
 
 
-    NavigationBar() {
+    NavigationBar(
+        containerColor = Color.Transparent,
+
+    ) {
          screens.forEach { screen ->
              AddItems(
                  screen = screen,
@@ -110,11 +118,12 @@ fun RowScope.AddItems(
             }
         },
 
-//        colors = NavigationBarItemDefaults.colors(
-//            selectedIconColor = Color.Blue,
-//            selectedTextColor = Color.Yellow,
-//            unselectedIconColor = Color.Green,
-//            unselectedTextColor = Color.Red,
-//        )
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+            selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            indicatorColor = Color.Transparent
+        )
     )
 }
