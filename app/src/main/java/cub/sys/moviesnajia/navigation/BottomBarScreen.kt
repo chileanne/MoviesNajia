@@ -16,6 +16,8 @@ sealed class BottomBarScreen(
     )
 
 
+
+
     object favorite : BottomBarScreen(
         route = "favorite",
         title ="favorite",
