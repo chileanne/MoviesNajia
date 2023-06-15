@@ -11,7 +11,7 @@ interface NewsApi {
      @GET("top-headlines")
      suspend fun topHeadlines(
           @Query("category") category: String,
-          @Query("country") country: String,
+          @Query("country") country: String = "us",
           @Query("apiKey") apiKey: String = ApiKey,
      ): NewsModel
 
