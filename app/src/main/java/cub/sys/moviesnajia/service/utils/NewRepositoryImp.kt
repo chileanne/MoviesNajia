@@ -7,7 +7,6 @@ class NewRepositoryImp(
     private val newsApi: NewsApi
 ) : NewRepository{
     override suspend fun getTopHeadLine(category: String): Resources<List<Article>> {
-        TODO("Not yet implemented")
 
         return  try {
             val response = newsApi.topHeadlines(category = category)

@@ -18,6 +18,6 @@ interface NewsApi {
 
      companion object{
           const val  ApiKey ="f81d874b58a445d1a8f8ca420050c8e6"
-          const val BaseUrl="https://newsapi.org/v2/"
+          const val Base_Url="https://newsapi.org/v2/"
      }
 }
