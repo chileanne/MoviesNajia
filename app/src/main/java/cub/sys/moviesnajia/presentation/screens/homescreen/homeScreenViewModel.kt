@@ -33,6 +33,8 @@ class homeScreenViewModel @Inject constructor(
                      article = result.data?: emptyList()
                 }
 
+
+
                 is Resources.Error -> TODO()
 
             }

@@ -44,8 +44,7 @@ import cub.sys.moviesnajia.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DashboardScreen(){
-    val navController = rememberNavController();
-
+    val navController = rememberNavController()
   Scaffold(
       bottomBar = { BottomAppBars(navController = navController) },
       containerColor = MaterialTheme.colorScheme.onSecondaryContainer
