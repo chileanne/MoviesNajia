@@ -1,5 +1,6 @@
 package cub.sys.moviesnajia.screens
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,26 +12,47 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import cub.sys.moviesnajia.presentation.screens.homescreen.homeScreenViewModel
 import cub.sys.moviesnajia.presentation.widgets.CardItem
 import cub.sys.moviesnajia.presentation.widgets.CategoryTabBar
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
+import cub.sys.moviesnajia.presentation.screens.homescreen.HomeScreenEvents
+import cub.sys.moviesnajia.presentation.screens.homescreen.HomeScreenState
+
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
-    viewModel: homeScreenViewModel = hiltViewModel()
-){
+//    viewModel: homeScreenViewModel = hiltViewModel()
+
+    onEvent: (HomeScreenEvents) -> Unit,
+    state: HomeScreenState,
+
+    ){
 
     val pagerState = rememberPagerState()
     val courtineScope = rememberCoroutineScope()
     val Categories = listOf<String>(
         "General", "Business","entertainment", "Sports","technology"
     )
+
+
+   LaunchedEffect(key1 = pagerState){
+       Log.d("Pager State Change", "Pager : $pagerState")
+       Log.d("Pager State Changeccvc", "Pager : ${pagerState.currentPage}")
+
+
+       snapshotFlow { pagerState.currentPage }.collect{ page->
+           Log.d("Pagerccc", "Pager : $page")
+           onEvent(HomeScreenEvents.onCategroyChanged(category = Categories[page] ))
+
+     }
+   }
 
 
    Column() {
@@ -97,7 +119,7 @@ fun HomeScreen(
            LazyColumn(
                contentPadding = PaddingValues(12.dp),
            ){
-               items(viewModel.article ){ Article ->
+               items(state.article ){ Article ->
 
                    CardItem(
                        data = Article,

@@ -19,6 +19,22 @@ class homeScreenViewModel @Inject constructor(
 ):ViewModel() {
     var article by mutableStateOf<List<Article>>(emptyList())
 
+    var state by mutableStateOf(HomeScreenState())
+
+    fun onEvent(events: HomeScreenEvents){
+        when(events){
+            is HomeScreenEvents.onCategroyChanged -> {
+                state = state.copy(category = events.category)
+                getNewArticle(category = state.category)
+            }
+            HomeScreenEvents.onCloseIconClicked -> TODO()
+            is HomeScreenEvents.onNewsCardClicked -> TODO()
+            HomeScreenEvents.onSearchIconClicked -> TODO()
+            is HomeScreenEvents.onSearchQueryChanged -> TODO()
+        }
+
+    }
+
     init {
         print("==========Fucked========")
         getNewArticle(category = "general")
@@ -30,7 +46,10 @@ class homeScreenViewModel @Inject constructor(
             val result = newRepository.getTopHeadLine(category = category)
             when (result) {
                 is Resources.Success -> {
-                     article = result.data?: emptyList()
+                    state= state.copy(
+                        article = result.data?: emptyList()
+                    )
+
                 }
 
 
