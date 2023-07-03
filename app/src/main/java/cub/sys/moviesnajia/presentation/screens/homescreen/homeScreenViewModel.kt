@@ -1,6 +1,7 @@
 package cub.sys.moviesnajia.presentation.screens.homescreen
 
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,7 +29,9 @@ class homeScreenViewModel @Inject constructor(
                 getNewArticle(category = state.category)
             }
             HomeScreenEvents.onCloseIconClicked -> TODO()
-            is HomeScreenEvents.onNewsCardClicked -> TODO()
+            is HomeScreenEvents.onNewsCardClicked ->  {
+            state = state.copy(selectedArticle = events.SelectedArticle)
+        }
             HomeScreenEvents.onSearchIconClicked -> TODO()
             is HomeScreenEvents.onSearchQueryChanged -> TODO()
         }
@@ -43,11 +46,13 @@ class homeScreenViewModel @Inject constructor(
 
     private fun getNewArticle(category : String){
         viewModelScope.launch {
+            state= state.copy(isLoading = true)
             val result = newRepository.getTopHeadLine(category = category)
             when (result) {
                 is Resources.Success -> {
                     state= state.copy(
-                        article = result.data?: emptyList()
+                        article = result.data?: emptyList(),
+                        isLoading = false
                     )
 
                 }

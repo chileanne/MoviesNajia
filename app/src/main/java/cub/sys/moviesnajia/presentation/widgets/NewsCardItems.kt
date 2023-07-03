@@ -1,5 +1,6 @@
 package cub.sys.moviesnajia.presentation.widgets
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -27,6 +28,7 @@ fun CardItem(
             // .fillMaxWidth()
             // .height(90.dp)
             .padding(10.dp)
+            .clickable{ onClickAble(data) }
     ) {
         Column {
             Text(
